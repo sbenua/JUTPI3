@@ -1005,6 +1005,9 @@ margin: 0;
 border-radius: 0;
 border: none;
 }
+div.info.legend.leaflet-control {
+  display: none !important;
+}
 .leaflet .info {
 padding: 6px 8px;
 font: 14px/16px Arial, Helvetica, sans-serif;
@@ -5535,6 +5538,18 @@ function asArray(value) {
         if (statusPanel) statusPanel.classList.add('pwa-visible');
         if (statusText) statusText.textContent = 'Offline mode failed to initialize: ' + err.message;
       });
+  })();
+</script>
+
+<script>
+  (function () {
+    const removeElements = () => {
+      const els = document.querySelectorAll('div.info.legend.leaflet-control');
+      els.forEach(el => el.remove());
+    };
+    removeElements();
+    const observer = new MutationObserver(removeElements);
+    observer.observe(document.body, { childList: true, subtree: true });
   })();
 </script>
 
