@@ -1,0 +1,25 @@
+{
+  "name": "JUTPI3 Public Transit Network Map",
+  "short_name": "JUTPI3 Map",
+  "description": "Offline-first public transit network map for the Jakarta metro area (OpenStreetMap + CARTO Positron basemaps, cached for offline use).",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
