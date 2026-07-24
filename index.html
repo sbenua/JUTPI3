@@ -5455,10 +5455,15 @@ function asArray(value) {
     const refreshBtn = document.getElementById('pwa-cache-refresh');
     const hideBtn = document.getElementById('pwa-cache-hide');
 
+    let offlineTimeout;
     function setOfflineUI(isOffline) {
       if (!banner) return;
       banner.classList.toggle('pwa-visible', isOffline);
       window.JutpiDB && window.JutpiDB.setSetting('lastOnlineStatus', !isOffline);
+      if (isOffline) {
+        clearTimeout(offlineTimeout);
+        offlineTimeout = setTimeout(() => { banner.classList.remove('pwa-visible'); }, 5000);
+      }
     }
 
     window.addEventListener('online', () => setOfflineUI(false));
@@ -5466,7 +5471,8 @@ function asArray(value) {
     setOfflineUI(!navigator.onLine);
 
     if (hideBtn && statusPanel) {
-      hideBtn.addEventListener('click', () => statusPanel.classList.remove('pwa-visible'));
+      hideBtn.addEventListener('click', (e) => { e.stopPropagation(); statusPanel.classList.toggle('pwa-minimized'); });
+      statusPanel.addEventListener('click', () => { if(statusPanel.classList.contains('pwa-minimized')) statusPanel.classList.remove('pwa-minimized'); });
     }
 
     if (!('serviceWorker' in navigator)) {
@@ -5482,7 +5488,7 @@ function asArray(value) {
         navigator.serviceWorker.addEventListener('message', (event) => {
           const data = event.data || {};
           if (data.type === 'PRECACHE_PROGRESS') {
-            if (statusPanel) statusPanel.classList.add('pwa-visible');
+            if (statusPanel && !statusPanel.classList.contains('pwa-minimized')) statusPanel.classList.add('pwa-visible');
             if (statusText) {
               statusText.textContent =
                 `Caching map tiles for offline use: ${data.done}/${data.total}` +
@@ -5502,7 +5508,7 @@ function asArray(value) {
               if (statusText) statusText.textContent = 'Cache status unavailable: ' + data.error;
               return;
             }
-            if (statusPanel) statusPanel.classList.add('pwa-visible');
+            if (statusPanel && !statusPanel.classList.contains('pwa-minimized')) statusPanel.classList.add('pwa-visible');
             if (statusText) {
               statusText.textContent = `Tiles cached: ${data.tilesCached} (baseline target: ${data.precacheTarget})`;
             }
@@ -5523,7 +5529,7 @@ function asArray(value) {
           refreshBtn.addEventListener('click', () => {
             if (navigator.serviceWorker.controller) {
               navigator.serviceWorker.controller.postMessage({ type: 'START_PRECACHE' });
-              if (statusPanel) statusPanel.classList.add('pwa-visible');
+              if (statusPanel && !statusPanel.classList.contains('pwa-minimized')) statusPanel.classList.add('pwa-visible');
               if (statusText) statusText.textContent = 'Refreshing offline tile cache…';
             }
           });
@@ -5535,7 +5541,7 @@ function asArray(value) {
       })
       .catch((err) => {
         console.error('[PWA] Service worker registration failed:', err);
-        if (statusPanel) statusPanel.classList.add('pwa-visible');
+        if (statusPanel && !statusPanel.classList.contains('pwa-minimized')) statusPanel.classList.add('pwa-visible');
         if (statusText) statusText.textContent = 'Offline mode failed to initialize: ' + err.message;
       });
   })();
@@ -5553,5 +5559,66 @@ function asArray(value) {
   })();
 </script>
 
+<style>
+/* Leaflet layers control fix */
+.leaflet-control-layers {
+  transition: all 0.2s;
+}
+.leaflet-control-layers.leaflet-control-layers-expanded {
+  padding: 0;
+  background: #fff;
+}
+.leaflet-control-layers.leaflet-control-layers-expanded .leaflet-control-layers-list {
+  display: none;
+}
+.leaflet-control-layers.leaflet-control-layers-expanded:hover .leaflet-control-layers-list,
+.leaflet-control-layers.leaflet-control-layers-expanded.active .leaflet-control-layers-list {
+  display: block;
+}
+.leaflet-control-layers.leaflet-control-layers-expanded:hover,
+.leaflet-control-layers.leaflet-control-layers-expanded.active {
+  padding: 6px 10px 6px 6px;
+}
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+  display: block !important;
+}
+.leaflet-control-layers-expanded:hover .leaflet-control-layers-toggle {
+  display: none !important;
+}
+
+/* Cache status minimized */
+#pwa-cache-status {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: default;
+}
+#pwa-cache-status.pwa-minimized {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#pwa-cache-status.pwa-minimized > * {
+  display: none !important;
+}
+#pwa-cache-status.pwa-minimized::after {
+  content: '⬇️';
+  display: block;
+  font-size: 20px;
+}
+</style>
+<script>
+  setTimeout(() => {
+    const controls = document.querySelectorAll('.leaflet-control-layers');
+    controls.forEach(c => {
+      c.addEventListener('mouseenter', () => c.classList.add('active'));
+      c.addEventListener('mouseleave', () => c.classList.remove('active'));
+    });
+  }, 1000);
+</script>
 </body>
 </html>
