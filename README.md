@@ -1,6 +1,6 @@
 # JUTPI3 RouteMap — Offline PWA Fork
 
-A Progressive Web App fork of the [JUTPI3 Public Transit Route Map](https://github.com/JUTPI3/JUTPI3_RouteMap), rebuilt for offline reading with a service worker and aggressive caching.
+A Progressive Web App fork of the [JUTPI3 Public Transit Route Map](https://github.com/JUTPI3/JUTPI3_MapVisualization), rebuilt for offline reading with a service worker and aggressive caching.
 
 **Live app:** [jutpi-offline.vercel.app](https://jutpi-offline.vercel.app)
 
@@ -14,7 +14,7 @@ This is a fork, not an original work. All route data, cartography, and network d
 
 ## Original Project
 
-The [JABODETABEK Urban Transportation Policy Integration Project Phase 3 (JUTPI3, 2022 to 2025)](https://github.com/JUTPI3/JUTPI3_RouteMap) is a technical cooperation project by JICA and CMEA, Republic of Indonesia, developing integrated urban transport policy and Transit-Oriented Development (TOD) for Greater Jakarta. The route map was designed and disseminated in collaboration with FDTJ (Forum Diskusi Transportasi Jakarta) to visualize the proposed public transit network through 2045.
+The [JABODETABEK Urban Transportation Policy Integration Project Phase 3 (JUTPI3, 2022 to 2025)](https://github.com/JUTPI3/JUTPI3_MapVisualization) is a technical cooperation project by JICA and CMEA, Republic of Indonesia, developing integrated urban transport policy and Transit-Oriented Development (TOD) for Greater Jakarta. The route map was designed and disseminated in collaboration with FDTJ (Forum Diskusi Transportasi Jakarta) to visualize the proposed public transit network through 2045.
 
 ## License
 
@@ -36,7 +36,7 @@ Ini adalah fork, bukan karya asli. Semua data rute, kartografi, dan desain jarin
 
 ### Proyek Asli
 
-[JABODETABEK Urban Transportation Policy Integration Project Phase 3 (JUTPI3, 2022 hingga 2025)](https://github.com/JUTPI3/JUTPI3_RouteMap) adalah proyek kerja sama teknis oleh JICA dan CMEA, Republik Indonesia, untuk mengembangkan kebijakan transportasi perkotaan terintegrasi dan Transit-Oriented Development (TOD) di kawasan Jabodetabek. Peta rute ini dirancang dan disebarluaskan bersama FDTJ (Forum Diskusi Transportasi Jakarta) untuk memvisualisasikan usulan jaringan transportasi publik hingga tahun 2045.
+[JABODETABEK Urban Transportation Policy Integration Project Phase 3 (JUTPI3, 2022 hingga 2025)](https://github.com/JUTPI3/JUTPI3_MapVisualization) adalah proyek kerja sama teknis oleh JICA dan CMEA, Republik Indonesia, untuk mengembangkan kebijakan transportasi perkotaan terintegrasi dan Transit-Oriented Development (TOD) di kawasan Jabodetabek. Peta rute ini dirancang dan disebarluaskan bersama FDTJ (Forum Diskusi Transportasi Jakarta) untuk memvisualisasikan usulan jaringan transportasi publik hingga tahun 2045.
 
 ### Lisensi
 
